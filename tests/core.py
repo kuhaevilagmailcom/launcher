@@ -46,7 +46,7 @@ def test_config_defaults(monkeypatch=None) -> None:
         assert cfg.subscription_channel == "@anonmgn"
         assert cfg.subscription_reward == 100
         assert cfg.miniapp_enabled is True
-        assert cfg.miniapp_url == ""
+        assert cfg.miniapp_url == "https://elite-crmp.ru/web/index.html"
 
         # id администраторов не зашиваются в публичный код
         os.environ["ADMIN_IDS"] = ""
@@ -1337,13 +1337,22 @@ def test_miniapp_init_data_signature() -> None:
 
 
 def test_miniapp_health_static_and_origin_guard() -> None:
+    from types import SimpleNamespace
+
     from aiohttp.test_utils import TestClient, TestServer
 
     from anonchat.miniapp_api import MiniAppServer
 
     async def scenario() -> None:
         web_dir = Path(__file__).resolve().parents[1] / "miniapp" / "web"
-        miniapp = MiniAppServer(None, None, None, None, None, web_dir=web_dir)
+        miniapp = MiniAppServer(
+            None,
+            SimpleNamespace(miniapp_url="https://elite-crmp.ru/web/index.html"),
+            None,
+            None,
+            None,
+            web_dir=web_dir,
+        )
         client = TestClient(TestServer(miniapp.create_app()))
         await client.start_server()
         try:
@@ -1357,6 +1366,12 @@ def test_miniapp_health_static_and_origin_guard() -> None:
             )
             assert same_origin.status == 200
             assert same_origin.headers["Access-Control-Allow-Origin"] == own_origin
+
+            configured_origin = await client.get(
+                "/api/miniapp/health", headers={"Origin": "https://elite-crmp.ru"}
+            )
+            assert configured_origin.status == 200
+            assert configured_origin.headers["Access-Control-Allow-Origin"] == "https://elite-crmp.ru"
 
             foreign = await client.get(
                 "/api/miniapp/health", headers={"Origin": "https://evil.example"}

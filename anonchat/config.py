@@ -85,7 +85,7 @@ class Config:
     subscription_channel_url: str = "https://t.me/anonmgn"
     subscription_reward: int = 100
     miniapp_enabled: bool = True
-    miniapp_url: str = ""
+    miniapp_url: str = "https://elite-crmp.ru/web/index.html"
 
     # limits
     max_message_len: int = 3000
@@ -134,7 +134,9 @@ class Config:
                 env("SUBSCRIPTION_REWARD", str(cls._default("subscription_reward")))
             ),
             miniapp_enabled=_bool(env("MINIAPP_ENABLED", "true")),
-            miniapp_url=env("MINIAPP_URL", "").strip().rstrip("/"),
+            miniapp_url=env(
+                "MINIAPP_URL", cls._default("miniapp_url")
+            ).strip().rstrip("/"),
             auto_mute_reports=int(env("AUTO_MUTE_REPORTS", str(cls._default("auto_mute_reports")))),
             auto_mute_minutes=int(env("AUTO_MUTE_MINUTES", str(cls._default("auto_mute_minutes")))),
             report_context_retention_days=int(

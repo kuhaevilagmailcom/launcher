@@ -122,6 +122,12 @@ class MiniAppServer:
             for item in os.getenv("MINIAPP_ALLOWED_ORIGINS", "").split(",")
             if item.strip()
         }
+        miniapp_url = str(getattr(cfg, "miniapp_url", "") or "")
+        parsed_miniapp_url = urlsplit(miniapp_url)
+        if parsed_miniapp_url.scheme == "https" and parsed_miniapp_url.netloc:
+            self.allowed_origins.add(
+                f"{parsed_miniapp_url.scheme}://{parsed_miniapp_url.netloc}"
+            )
 
     async def _auth(self, request: web.Request) -> tuple[int, dict, object]:
         raw = request.headers.get("X-Telegram-Init-Data", "")
