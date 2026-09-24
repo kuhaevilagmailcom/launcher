@@ -1,0 +1,9 @@
+{
+  "name": "АНОН МГН",
+  "short_name": "АНОН МГН",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#050506",
+  "theme_color": "#050506",
+  "icons": [{"src":"./assets/anon-mgn-logo.png","sizes":"any","type":"image/png"}]
+}

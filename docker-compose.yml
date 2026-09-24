@@ -1,0 +1,13 @@
+services:
+  anonchat-mgn:
+    build: .
+    container_name: anonchat-mgn
+    env_file: .env
+    volumes:
+      - ./data:/app/data
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    # раскомментируй, если переведёшь бота на вебхук вместо polling
+    # ports:
+    #   - "8081:8081"

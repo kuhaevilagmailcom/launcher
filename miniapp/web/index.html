@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#000000">
+  <meta name="color-scheme" content="dark">
+  <meta name="api-base" content="">
+  <title>АНОН МГН</title>
+  <link rel="icon" href="./assets/anon-mgn-logo.png">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="stylesheet" href="./styles.css?v=11">
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+  <div class="boot" id="boot"><img src="./assets/anon-mgn-logo.png" alt="АНОН МГН"><span></span></div>
+  <div class="offline" id="offline" hidden><span data-icon="wifi-off"></span> Нет сети. Показываем последние данные.</div>
+  <div class="app" id="app" aria-live="polite">
+    <header class="topbar"><img class="logo" src="./assets/anon-mgn-logo.png" alt="АНОН МГН"><button class="icon-btn" data-open="settings" aria-label="Настройки"><span data-icon="settings"></span></button></header>
+    <main class="pages">
+      <section class="page active" data-page="home">
+        <button class="profile-card surface" data-nav="profile"><span class="avatar"><img data-avatar alt=""><b data-avatar-fallback>А</b><i></i></span><span class="profile-copy"><small>С возвращением</small><strong data-nick>Аноним</strong><span><b data-stars>0</b> <i class="star">★</i></span></span><span data-icon="chevron-right"></span></button>
+        <section class="hero surface"><span class="hero-icon" data-icon="messages-circle"></span><h1>Найти собеседника</h1><p>Подберём человека для разговора.</p><button class="primary" data-nav="search">Найти собеседника <span data-icon="arrow-right"></span></button></section>
+        <section class="metrics" aria-label="Онлайн статистика"><article class="surface"><span class="dot green"></span><small>Онлайн</small><strong data-online>0</strong></article><article class="surface"><span class="dot pink"></span><small>Общаются</small><strong data-chatting>0</strong></article><article class="surface"><span class="dot violet"></span><small>Ищут</small><strong data-searching>0</strong></article></section>
+        <button class="row surface" data-open="quests"><span class="row-icon pink" data-icon="target"></span><span><strong>Цели дня</strong><small data-quest-label>Отправь 20 сообщений</small><i class="progress"><i data-quest-progress></i></i></span><b data-quest-progress-text>0/20</b><i data-icon="chevron-right"></i></button>
+        <button class="row surface" data-nav="games"><span class="row-icon violet" data-icon="gamepad-2"></span><span><strong>Игры вдвоём</strong><small>Битва мнений и Числа</small></span><i data-icon="chevron-right"></i></button>
+      </section>
+      <section class="page" data-page="search">
+        <header class="page-title"><small>Анонимный чат</small><h1>Найти собеседника</h1><p>Выбор помогает подобрать человека, но не делает очередь бесконечной.</p></header>
+        <section class="search-card surface"><div class="search-head"><span class="radar"><i></i><b data-icon="search"></b></span><span><small>Статус</small><strong id="searchTitle">Готовы к поиску</strong><p id="searchText">Настрой предпочтения и начни.</p></span></div><div class="field-group"><div><strong>Твой берег</strong><small>необязательно</small></div><div class="segments" data-setting="district"><button data-value="Правый берег">Правый</button><button data-value="Левый берег">Левый</button><button data-value="" class="active">Любой</button></div></div><div class="field-group"><div><strong>Кого ищешь</strong><small>предпочтение</small></div><div class="segments" data-setting="looking_for"><button data-value="m">Парня</button><button data-value="f">Девушку</button><button data-value="" class="active">Неважно</button></div></div><button class="primary large" id="searchToggle">Начать поиск <span data-icon="arrow-right"></span></button></section>
+        <section class="metrics compact"><article class="surface"><small>Ищут</small><strong data-searching>0</strong></article><article class="surface"><small>Общаются</small><strong data-chatting>0</strong></article><article class="surface"><small>Онлайн</small><strong data-online>0</strong></article></section><p class="hint"><span data-icon="shield-check"></span> Общение остаётся анонимным.</p>
+      </section>
+      <section class="page" data-page="games">
+        <header class="page-title"><small>В активном диалоге</small><h1>Игры вдвоём</h1><p>Приглашение придёт текущему собеседнику в чат бота.</p></header>
+        <button class="game-card surface" data-game="battle"><span class="game-art battle" data-icon="swords"></span><span><small>5 или 10 вопросов</small><strong>Битва мнений</strong><p>Сравните выборы и узнайте, насколько вы похожи.</p><b>Играть <i data-icon="arrow-right"></i></b></span></button>
+        <button class="game-card surface" data-game="numbers"><span class="game-art numbers" data-icon="hash"></span><span><small>3 раунда</small><strong>Числа</strong><p>Выберите числа независимо. Чем ближе — тем больше награда.</p><b>Играть <i data-icon="arrow-right"></i></b></span></button>
+        <section class="game-stats surface"><div><small>Всего игр</small><strong data-games>0</strong></div><i></i><div><small>Мнения</small><strong data-battle-games>0</strong></div><i></i><div><small>Числа</small><strong data-number-games>0</strong></div></section>
+      </section>
+      <section class="page" data-page="events"><header class="page-title"><small>Всё важное</small><h1>События</h1><p>Текущий поиск, активный диалог и игровые приглашения.</p></header><div class="filter" id="eventFilter"><button class="active" data-filter="all">Все</button><button data-filter="personal">Личные</button><button data-filter="games">Игры</button></div><div class="event-list" id="eventList"></div></section>
+      <section class="page" data-page="profile">
+        <header class="page-title"><small>Личный кабинет</small><h1>Профиль</h1></header>
+        <section class="profile-hero surface"><span class="avatar big"><img data-avatar alt=""><b data-avatar-fallback>А</b><i></i></span><span><strong data-nick>Аноним</strong><small><b data-stars>0</b> <i class="star">★</i></small></span><button class="soft" data-open="edit-profile"><span data-icon="pencil"></span> Изменить</button></section>
+        <section class="profile-stats"><article class="surface"><span data-icon="message-circle"></span><strong data-dialogs>0</strong><small>Диалоги</small></article><article class="surface"><span data-icon="messages-square"></span><strong data-messages>0</strong><small>Сообщения</small></article><article class="surface"><span data-icon="thumbs-up"></span><strong data-ratings>0</strong><small>Хорошие</small></article><article class="surface"><span data-icon="gamepad-2"></span><strong data-games>0</strong><small>Игры</small></article></section>
+        <button class="streak-card surface" data-open="streak"><span><small>Серия активности</small><strong><b data-streak>0</b> дней</strong></span><span class="flames" aria-label="Активность за 7 дней"><i data-flame></i><i data-flame></i><i data-flame></i><i data-flame></i><i data-flame></i><i data-flame></i><i data-flame></i></span><i data-icon="chevron-right"></i></button>
+        <section class="menu surface"><button data-open="activity"><span data-icon="chart"></span><span><strong>Моя активность</strong><small>Сегодня, неделя, месяц</small></span><i data-icon="chevron-right"></i></button><button data-open="top"><span data-icon="trophy"></span><span><strong>Топ участников</strong><small>10 лучших по звёздам</small></span><i data-icon="chevron-right"></i></button><button data-open="referral"><span data-icon="link"></span><span><strong>Приглашения</strong><small><b data-invited>0</b> друзей · <b data-ref-earned>0</b> ★ получено</small></span><i data-icon="chevron-right"></i></button><button data-open="settings"><span data-icon="sliders"></span><span><strong>Настройки</strong><small>Профиль, поиск и награды</small></span><i data-icon="chevron-right"></i></button><button data-open="feedback"><span data-icon="mail"></span><span><strong>Обратная связь</strong><small>Написать администраторам</small></span><i data-icon="chevron-right"></i></button><button data-open="help"><span data-icon="circle-help"></span><span><strong>Помощь и правила</strong><small>Коротко о работе бота</small></span><i data-icon="chevron-right"></i></button></section>
+      </section>
+    </main>
+    <nav class="bottom-nav" id="bottomNav"><button class="active" data-nav="home"><span data-icon="house"></span><small>Главная</small></button><button data-nav="search"><span data-icon="search"></span><small>Поиск</small></button><button data-nav="games"><span data-icon="gamepad-2"></span><small>Игры</small></button><button data-nav="events"><span data-icon="bell"></span><i data-event-dot hidden></i><small>События</small></button><button data-nav="profile"><span data-icon="user-round"></span><small>Профиль</small></button></nav>
+  </div>
+  <div class="modal" id="modal" hidden><button class="modal-backdrop" data-close-modal aria-label="Закрыть"></button><section class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><i class="handle"></i><header><span><small id="modalEyebrow"></small><strong id="modalTitle"></strong></span><button class="icon-btn" data-close-modal aria-label="Закрыть"><span data-icon="x"></span></button></header><div class="modal-body" id="modalBody"></div></section></div>
+  <div class="toast" id="toast" role="status"></div>
+  <script src="./app.js?v=11"></script>
+</body>
+</html>
